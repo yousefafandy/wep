@@ -1,0 +1,18 @@
+<?php
+
+return [
+    'customer_new_order_title' => 'Поръчката е успешна!',
+    'admin_new_order_title' => 'Получихте нова поръчка от :site_title',
+    'order_cancellation_to_admin_title' => 'Поръчка :order_id отказана от клиент',
+    'order_recover_title' => 'Имате непълна поръчка',
+    'confirm_email_title' => 'Потвърдете имейла',
+    'password_reminder_title' => 'Възстановете вашата парола',
+    'order_return_request_title' => 'Заявката за връщане е получена',
+    'order_return_status_updated_title' => 'Актуализация на статуса на връщането',
+    'order_return_status_updated_description' => 'Бележка на модератора: " :description ".',
+    'review_products_title' => 'Оценете вашата скорошна покупка',
+    'download_digital_products_title' => 'Вашите дигитални продукти са готови',
+    'digital_product_license_codes_title' => 'Вашите лицензни кодове',
+    'product_file_updated_title' => 'Файловете на продукта са актуализирани',
+    'invoice_payment_created_title' => 'Плащането е получено',
+];
