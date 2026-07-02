@@ -65,7 +65,11 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan cms:publish:assets"
+        ],
+        "post-install-cmd": [
+            "@php -r \"if (PHP_OS_FAMILY !== 'Windows') { exec('chmod -R 777 public/vendor public/storage storage bootstrap/cache 2>/dev/null'); }\""
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force",
