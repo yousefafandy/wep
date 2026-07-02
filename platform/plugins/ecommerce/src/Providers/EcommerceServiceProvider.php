@@ -791,6 +791,15 @@ class EcommerceServiceProvider extends ServiceProvider
                     'url' => fn () => route('order_returns.index'),
                     'permissions' => ['orders.edit'],
                 ])
+                ->registerItem([
+                    'id' => 'cms-plugins-ecommerce-order-map',
+                    'priority' => 35,
+                    'parent_id' => 'cms-plugins-ecommerce',
+                    'name' => 'plugins/ecommerce::order.map',
+                    'icon' => 'ti ti-map',
+                    'url' => fn () => route('orders.map'),
+                    'permissions' => ['orders.index'],
+                ])
                 ->when(! EcommerceHelper::isDisabledPhysicalProduct(), function (DashboardMenuSupport $dashboardMenu): void {
                     $dashboardMenu->registerItem([
                         'id' => 'cms-plugins-ecommerce-shipping-shipments',

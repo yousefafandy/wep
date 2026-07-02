@@ -24,7 +24,7 @@ class AdminNotificationListener
             'action_label' => $item->getLabel(),
             'action_url' => $item->getRoute(),
             'description' => $item->getDescription(),
-            'permission' => $item->getPermission(),
+            'permission' => $item->getPermission() ?: null,
         ]);
     }
 }

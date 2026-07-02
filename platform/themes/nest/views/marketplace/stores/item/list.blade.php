@@ -15,7 +15,7 @@
                 <div class="product-category">
                     <span class="text-muted">{{ __('Since :year', ['year' => Theme::formatDate($store->created_at, 'Y')]) }}</span>
                 </div>
-                <h4 class="mb-5"><a href="{{ $store->url }}">{{ $store->name }}</a> {!! $store->badge !!}</h4>
+                <h4 class="mb-5"><a href="{{ $store->url }}">{{ $store->name }}</a> {!! $store->badge !!} @if (!$store->isKitchenOpen())<span class="badge bg-danger ms-1">{{ __('Closed') }}</span>@endif</h4>
 
                 @include(Theme::getThemeNamespace('views.marketplace.stores.partials.rating'))
                 <div class="vendor-info d-flex justify-content-between align-items-end mt-10">

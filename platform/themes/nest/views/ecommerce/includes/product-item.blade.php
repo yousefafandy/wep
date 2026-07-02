@@ -84,25 +84,31 @@
 
                 @if (EcommerceHelper::isCartEnabled())
                     <div class="add-cart">
-                        @if($product->has_variations)
-                            <a aria-label="{{ __('Quick Shop') }}"
-                                class="action-btn add mt-md-0 mt-3"
-                                data-bb-toggle="quick-shop"
-                                data-url="{{ route('public.ajax.quick-shop', $product->slug) }}"
-                                href="#"
-                                title="{{ __('Quick Shop') }}">
-                                <i class="fi-rs-shopping-cart mr-5"></i> <span class="d-inline-block">{{ __('Add') }}</span>
-                            </a>
+                        @if (is_store_kitchen_open($product))
+                            @if($product->has_variations)
+                                <a aria-label="{{ __('Quick Shop') }}"
+                                    class="action-btn add mt-md-0 mt-3"
+                                    data-bb-toggle="quick-shop"
+                                    data-url="{{ route('public.ajax.quick-shop', $product->slug) }}"
+                                    href="#"
+                                    title="{{ __('Quick Shop') }}">
+                                    <i class="fi-rs-shopping-cart mr-5"></i> <span class="d-inline-block">{{ __('Add') }}</span>
+                                </a>
+                            @else
+                                <a aria-label="{{ __('Add To Cart') }}"
+                                    class="action-btn add-to-cart-button add mt-md-0 mt-3"
+                                    data-bb-toggle="add-to-cart"
+                                    data-id="{{ $product->id }}"
+                                    data-url="{{ route('public.cart.add-to-cart') }}"
+                                    href="#"
+                                    title="{{ __('Add To Cart') }}">
+                                    <i class="fi-rs-shopping-cart mr-5"></i> <span class="d-inline-block">{{ __('Add') }}</span>
+                                </a>
+                            @endif
                         @else
-                            <a aria-label="{{ __('Add To Cart') }}"
-                                class="action-btn add-to-cart-button add mt-md-0 mt-3"
-                                data-bb-toggle="add-to-cart"
-                                data-id="{{ $product->id }}"
-                                data-url="{{ route('public.cart.add-to-cart') }}"
-                                href="#"
-                                title="{{ __('Add To Cart') }}">
-                                <i class="fi-rs-shopping-cart mr-5"></i> <span class="d-inline-block">{{ __('Add') }}</span>
-                            </a>
+                            <span class="text-danger small fw-bold">
+                                <i class="fi-rs-clock"></i> {{ __('Closed') }}
+                            </span>
                         @endif
                     </div>
                 @endif

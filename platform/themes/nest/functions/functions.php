@@ -35,7 +35,205 @@ app()->booted(function (): void {
 
         return $html;
     }, 17);
+
+    // Add Leaflet map to checkout address form
+    add_filter('ecommerce_checkout_address_form_after', function (?string $html, $sessionCheckoutData) {
+        if (! $html) {
+            $html = '';
+        }
+
+        $html .= view('plugins/ecommerce::orders.partials.address-map', [
+            'sessionCheckoutData' => $sessionCheckoutData,
+        ])->render();
+
+        return $html;
+    }, 16, 2);
+
+    // Check per-store kitchen status before showing checkout form
+    add_filter('ecommerce_checkout_form_before', function (?string $html, $products) {
+        $closedStores = [];
+
+        foreach ($products as $product) {
+            if ($product->store_id && $product->store && ! $product->store->isKitchenOpen()) {
+                $closedStores[$product->store_id] = $product->store;
+            }
+        }
+
+        if (! empty($closedStores)) {
+            $defaultMessage = theme_option('kitchen_closed_message', __('The kitchen is currently closed. Please come back during working hours.'));
+
+            foreach ($closedStores as $store) {
+                $message = $store->getKitchenClosedMessage() ?: $defaultMessage;
+                $html .= '<div class="alert alert-warning text-center py-3" style="font-size: 16px;">'
+                    . '<i class="fi-rs-clock"></i> '
+                    . '<strong>' . e($store->name) . '</strong>: '
+                    . e($message)
+                    . '</div>';
+            }
+
+            $html .= '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var btn = document.querySelector("#checkout-form button[type=submit], #checkout-form .btn-checkout");
+                    if (btn) {
+                        btn.disabled = true;
+                        btn.style.opacity = "0.5";
+                        btn.style.cursor = "not-allowed";
+                        btn.title = "' . __('Some kitchens are closed') . '";
+                    }
+                });
+            </script>';
+        }
+
+        return $html;
+    }, 16, 2);
+
+    // Add Leaflet CSS in checkout <head>
+    add_filter('ecommerce_checkout_header', function (?string $html): string {
+        if (! $html) {
+            $html = '';
+        }
+
+        $html .= "\n" . '<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />';
+
+        return $html;
+    }, 16);
+
+    // Add Leaflet JS in checkout footer
+    add_filter('ecommerce_checkout_footer', function (?string $html): string {
+        if (! $html) {
+            $html = '';
+        }
+
+        $html .= "\n" . '<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>';
+
+        return $html;
+    }, 16);
+
+    // Kitchen Settings tab in store edit page
+    add_filter(BASE_FILTER_REGISTER_CONTENT_TABS, function (?string $tabs, $store) {
+        if (! $store || ! method_exists($store, 'getKey')) {
+            return $tabs;
+        }
+
+        $tabs .= view('plugins/marketplace::stores.kitchen-tab-item')->render();
+
+        return $tabs;
+    }, 999, 2);
+
+    add_filter(BASE_FILTER_REGISTER_CONTENT_TAB_INSIDE, function (?string $content, $store) {
+        if (! $store || ! method_exists($store, 'getKey')) {
+            return $content;
+        }
+
+        $settings = $store->getMetaData('kitchen_settings', true);
+        if (! is_array($settings)) {
+            $settings = ['is_open' => true, 'working_hours' => [], 'closed_message' => ''];
+        }
+
+        $content .= view('plugins/marketplace::stores.kitchen-tab-content', compact('store', 'settings'))->render();
+
+        return $content;
+    }, 999, 2);
+
+    // Give the store form an ID so we can reference it from outside inputs/buttons
+    add_filter(BASE_FILTER_BEFORE_RENDER_FORM, function ($form, $model) {
+        if ($form instanceof \Botble\Marketplace\Forms\StoreForm) {
+            $form->setFormOptions(['id' => 'main-store-form']);
+        }
+        return $form;
+    }, 999, 2);
+
+    // Save kitchen settings when store is saved
+    add_action(BASE_ACTION_AFTER_UPDATE_CONTENT, function ($type, $request, $store) {
+        if (get_class($store) !== 'Botble\Marketplace\Models\Store') {
+            return;
+        }
+
+        if ($request->has('kitchen_settings')) {
+            $settings = $request->input('kitchen_settings');
+            unset($settings['_token']);
+            if (isset($settings['working_hours'])) {
+                $settings['working_hours'] = array_filter($settings['working_hours']);
+            }
+            MetaBox::saveMetaBoxData($store, 'kitchen_settings', $settings);
+        }
+    }, 999, 3);
+
+    add_action(BASE_ACTION_AFTER_CREATE_CONTENT, function ($type, $request, $store) {
+        if (get_class($store) !== 'Botble\Marketplace\Models\Store') {
+            return;
+        }
+
+        if ($request->has('kitchen_settings')) {
+            $settings = $request->input('kitchen_settings');
+            unset($settings['_token']);
+            if (isset($settings['working_hours'])) {
+                $settings['working_hours'] = array_filter($settings['working_hours']);
+            }
+            MetaBox::saveMetaBoxData($store, 'kitchen_settings', $settings);
+        }
+    }, 999, 3);
+
+    // JS: associate kitchen_settings inputs with the main form and show save buttons on Kitchen Settings tab
+    add_action('admin_footer', function () {
+        $isStoreEditPage = request()->route() && (request()->route()->named('marketplace.store.edit') || request()->route()->named('marketplace.vendor.settings'));
+        if (! $isStoreEditPage) {
+            return;
+        }
+
+        echo <<<'HTML'
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('main-store-form');
+    if (! form) return;
+
+    // Associate all kitchen_settings inputs with the main form
+    document.querySelectorAll('[name^="kitchen_settings"]').forEach(function (el) {
+        el.setAttribute('form', 'main-store-form');
+    });
+
+    // Find original action buttons and build sticky footer
+    var btnList = form.querySelector('.btn-list');
+    if (! btnList) return;
+
+    var footer = document.createElement('div');
+    footer.id = 'kitchen-settings-footer';
+    footer.style.cssText = 'display:none;position:sticky;bottom:0;z-index:100;background:#fff;border-top:1px solid #dce1e8;padding:1rem';
+    footer.className = 'card-footer';
+
+    var clone = btnList.cloneNode(true);
+    clone.querySelectorAll('[type="submit"]').forEach(function (btn) {
+        btn.setAttribute('form', 'main-store-form');
+    });
+    footer.appendChild(clone);
+
+    form.after(footer);
+
+    function toggle() {
+        var pane = document.getElementById('kitchen-settings-tab');
+        footer.style.display = pane && pane.classList.contains('active') ? '' : 'none';
+    }
+
+    document.querySelectorAll('[data-bs-toggle="tab"]').forEach(function (el) {
+        el.addEventListener('shown.bs.tab', toggle);
+    });
+    toggle();
 });
+</script>
+HTML;
+    });
+});
+
+if (! function_exists('is_store_kitchen_open')) {
+    function is_store_kitchen_open($product): bool
+    {
+        if (is_plugin_active('marketplace') && $product && $product->store_id && $product->store) {
+            return $product->store->isKitchenOpen();
+        }
+
+        return theme_option('kitchen_is_open', '1') == '1';
+    }
+}
 
 register_page_template([
     'full-width' => __('Full width'),
@@ -567,5 +765,6 @@ app()->booted(function (): void {
                     'html' => Theme::partial('marketplace.store.settings.extra-content', compact('model')),
                 ]);
         });
+
     }
 });

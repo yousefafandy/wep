@@ -91,13 +91,19 @@
 
                         <div class="product-extra-link2 @if (EcommerceHelper::isQuickBuyButtonEnabled()) has-buy-now-button @endif">
                             @if (EcommerceHelper::isCartEnabled())
-                                <button type="submit"
-                                    class="button button-add-to-cart @if ($product->isOutOfStock()) btn-disabled @endif"
-                                    @if ($product->isOutOfStock()) disabled @endif><i class="fi-rs-shopping-cart"></i>{{ __('Add to cart') }}</button>
-                                @if (EcommerceHelper::isQuickBuyButtonEnabled())
-                                    <button class="button button-buy-now ms-2 @if ($product->isOutOfStock()) btn-disabled @endif"
-                                        type="submit" name="checkout"
-                                        @if ($product->isOutOfStock()) disabled @endif>{{ __('Buy Now') }}</button>
+                                @if (is_store_kitchen_open($product))
+                                    <button type="submit"
+                                        class="button button-add-to-cart @if ($product->isOutOfStock()) btn-disabled @endif"
+                                        @if ($product->isOutOfStock()) disabled @endif><i class="fi-rs-shopping-cart"></i>{{ __('Add to cart') }}</button>
+                                    @if (EcommerceHelper::isQuickBuyButtonEnabled())
+                                        <button class="button button-buy-now ms-2 @if ($product->isOutOfStock()) btn-disabled @endif"
+                                            type="submit" name="checkout"
+                                            @if ($product->isOutOfStock()) disabled @endif>{{ __('Buy Now') }}</button>
+                                    @endif
+                                @else
+                                    <span class="text-danger fw-bold" style="font-size: 14px;">
+                                        <i class="fi-rs-clock"></i> {{ $product->store && $product->store_id ? $product->store->getKitchenClosedMessage() : __('Kitchen is currently closed') }}
+                                    </span>
                                 @endif
                             @endif
 

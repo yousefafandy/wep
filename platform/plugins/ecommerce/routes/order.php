@@ -34,6 +34,12 @@ AdminHelper::registerRoutes(function (): void {
                 'permission' => 'orders.edit',
             ])->wherePrimaryKey();
 
+            Route::get('map', [
+                'as' => 'map',
+                'uses' => 'OrderController@map',
+                'permission' => 'orders.index',
+            ]);
+
             Route::post('create-shipment/{order}', [
                 'as' => 'create-shipment',
                 'uses' => 'OrderController@postCreateShipment',

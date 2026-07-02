@@ -39,9 +39,15 @@
 
                 <div class="product-extra-link2 @if (EcommerceHelper::isQuickBuyButtonEnabled()) has-buy-now-button @endif">
                     @if (EcommerceHelper::isCartEnabled())
-                        <button type="submit"
-                                class="button button-add-to-cart @if ($product->isOutOfStock()) btn-disabled @endif"
-                                @if ($product->isOutOfStock()) disabled @endif><i class="fi-rs-shopping-cart"></i>{{ __('Add to cart') }}</button>
+                        @if (is_store_kitchen_open($product))
+                            <button type="submit"
+                                    class="button button-add-to-cart @if ($product->isOutOfStock()) btn-disabled @endif"
+                                    @if ($product->isOutOfStock()) disabled @endif><i class="fi-rs-shopping-cart"></i>{{ __('Add to cart') }}</button>
+                        @else
+                            <span class="text-danger fw-bold">
+                                <i class="fi-rs-clock"></i> {{ $product->store && $product->store_id ? $product->store->getKitchenClosedMessage() : __('Kitchen is currently closed') }}
+                            </span>
+                        @endif
                     @endif
                 </div>
             </div>

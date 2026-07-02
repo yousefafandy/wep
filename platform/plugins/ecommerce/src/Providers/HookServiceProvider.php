@@ -14,6 +14,8 @@ use Botble\Base\Forms\FieldOptions\NumberFieldOption;
 use Botble\Base\Forms\FieldOptions\OnOffFieldOption;
 use Botble\Base\Forms\FieldOptions\TextFieldOption;
 use Botble\Base\Forms\Fields\NumberField;
+use Botble\Setting\Forms\GeneralSettingForm;
+use Botble\Setting\Http\Requests\GeneralSettingRequest;
 use Botble\Base\Forms\Fields\OnOffCheckboxField;
 use Botble\Base\Forms\Fields\OnOffField;
 use Botble\Base\Forms\Fields\TextField;
@@ -1201,6 +1203,26 @@ class HookServiceProvider extends ServiceProvider
         }, 999, 2);
 
         add_filter('facebook_comment_html', [$this, 'renderProductFacebookComments'], 99, 2);
+
+        GeneralSettingForm::extend(function (GeneralSettingForm $form): void {
+            $form
+                ->add(
+                    'polling_interval',
+                    NumberField::class,
+                    NumberFieldOption::make()
+                        ->label(trans('Admin notification polling interval (seconds)'))
+                        ->value(setting('polling_interval', 20))
+                        ->helperText(trans('How often the admin panel checks for new notifications. Minimum: 5, Maximum: 300.'))
+                );
+        });
+
+        add_filter('core_request_rules', function (array $rules, $request): array {
+            if ($request instanceof GeneralSettingRequest) {
+                $rules['polling_interval'] = ['nullable', 'integer', 'min:5', 'max:300'];
+            }
+
+            return $rules;
+        }, 999, 2);
     }
 
     protected function getQuantityRestrictionMessages(Collection $products): array

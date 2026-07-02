@@ -86,6 +86,8 @@ class SettingController extends BaseController
             $store->fill($request->input());
             $store->save();
 
+            event(new UpdatedContentEvent(STORE_MODULE_SCREEN_NAME, $request, $store));
+
             $request->merge(['is_slug_editable' => 1]);
 
             if ($request->has('social_links')) {

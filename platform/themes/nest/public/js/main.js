@@ -1,1 +1,999 @@
-!function(s){"use strict";var e="rtl"===s("body").prop("dir");s(window).on("load",function(){s("#preloader-active").fadeOut(),s("body").css({overflow:"visible"}),s(".home-slider .single-hero-slider").show(),s("#news-flash ul li").show()});var t=s(".sticky-bar"),i=s(window),a=s("header.header-area");i.on("scroll",function(){i.scrollTop()<200?(t.removeClass("stick"),s(".header-style-2 .categories-dropdown-active-large").removeClass("open"),s(".header-style-2 .categories-button-active").removeClass("open")):t.addClass("stick")}),s.scrollUp({scrollText:'<i class="fi-rs-arrow-small-up"></i>',easingType:"linear",scrollSpeed:900,animation:"fade"}),s(".sticky-sidebar").length&&s(".sticky-sidebar").theiaStickySidebar(),Number.prototype.format_price=function(s,e){var t=window.currencies||{};s||(s=null!=t.number_after_dot?t.number_after_dot:2);var i="\\d(?=(\\d{"+(e||3)+"})+$)",a="",o=this;return t.show_symbol_or_title&&(a=t.symbol||t.title),t.display_big_money&&(o>=1e6&&o<1e9?(o/=1e6,a=t.million+(a?" "+a:"")):o>=1e9&&(o/=1e9,a=t.billion+(a?" "+a:""))),o=(o=(o=o.toFixed(Math.max(0,~~s))).toString().split("."))[0].toString().replace(new RegExp(i,"g"),"$&"+t.thousands_separator)+(o[1]?t.decimal_separator+o[1]:""),t.show_symbol_or_title&&(t.is_prefix_symbol?o=a+o:o+=a),o};var o=function(){s(".slider-range").length&&s(".slider-range").map(function(e,t){var i=s(t),a=i.closest(".range"),o=a.find("input.min-range"),l=a.find("input.max-range");i.slider({range:!0,min:o.data("min")||0,max:l.data("max")||500,values:[o.val()||0,l.val()||500],slide:function(s,e){n(a,e.values[0],e.values[1])},change:function(s,e){n(a,e.values[0],e.values[1]),a.find("input.min-range").trigger("change"),a.find("input.max-range").trigger("change")}}),n(a,i.slider("values",0),i.slider("values",1))})};function n(s,e,t){var i=s.closest(".widget-filter-item"),a=e,o=t;i.length&&"price"===i.data("type")&&(a=a.format_price(),o=o.format_price());var n=s.find(".from"),l=s.find(".to");s.find("input.min-range").val(e),s.find("input.max-range").val(t),n.text(a),l.text(o)}o(),s(".hero-slider-1").slick({slidesToShow:1,slidesToScroll:1,rtl:e,fade:!0,loop:!0,dots:!0,arrows:!0,prevArrow:'<span class="slider-btn slider-prev"><i class="fi-rs-angle-left"></i></span>',nextArrow:'<span class="slider-btn slider-next"><i class="fi-rs-angle-right"></i></span>',appendArrows:".hero-slider-1-arrow",autoplay:!0}).on("init afterChange",function(){s(this).find('.slick-slide[aria-hidden="true"]').find("a, input, button, select, textarea, [tabindex]").attr("tabindex","-1"),s(this).find('.slick-slide[aria-hidden="false"]').find("a, input, button, select, textarea, [tabindex]").attr("tabindex","0")}),s(".carousel-8-columns").each(function(){var t=s(this).attr("id"),i="#"+t,a="#"+t+"-arrows",o=Object.assign({dots:!1,infinite:!0,rtl:e,speed:1e3,arrows:!0,autoplay:!0,slidesToShow:(s(i).data("items-xxl")?s(i).data("items-xxl"):s(i).data("items-xl"))||8,slidesToScroll:1,loop:!0,adaptiveHeight:!0,responsive:[{breakpoint:1200,settings:{slidesToShow:s(i).data("items-xl")||6,slidesToScroll:1}},{breakpoint:1025,settings:{slidesToShow:s(i).data("items-lg")||5,slidesToScroll:1}},{breakpoint:768,settings:{slidesToShow:s(i).data("items-md")||4,slidesToScroll:1}},{breakpoint:480,settings:{slidesToShow:s(i).data("items-sm")||2,slidesToScroll:1}}],prevArrow:'<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',nextArrow:'<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',appendArrows:a},s(i).data("slick")||{});s(i).slick(o)}),s(".carousel-10-columns").each(function(){var t=s(this).attr("id"),i="#"+t,a="#"+t+"-arrows",o=Object.assign({dots:!1,infinite:!0,rtl:e,speed:1e3,arrows:!0,autoplay:!1,slidesToShow:(s(i).data("items-xxl")?s(i).data("items-xxl"):s(i).data("items-xl"))||10,slidesToScroll:1,loop:!0,adaptiveHeight:!0,responsive:[{breakpoint:1200,settings:{slidesToShow:s(i).data("items-xl")||6,slidesToScroll:1}},{breakpoint:1025,settings:{slidesToShow:s(i).data("items-lg")||5,slidesToScroll:1}},{breakpoint:768,settings:{slidesToShow:s(i).data("items-md")||4,slidesToScroll:1}},{breakpoint:480,settings:{slidesToShow:s(i).data("items-sm")||2,slidesToScroll:1}}],prevArrow:'<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',nextArrow:'<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',appendArrows:a},s(i).data("slick")||{});s(i).slick(o)}),s(".carousel-4-columns").each(function(){var t=s(this).attr("id"),i="#"+t,a="#"+t+"-arrows",o=Object.assign({dots:!1,infinite:!0,rtl:e,speed:1e3,arrows:!0,autoplay:!0,slidesToShow:4,slidesToScroll:1,loop:!0,adaptiveHeight:!0,responsive:[{breakpoint:1200,settings:{slidesToShow:3,slidesToScroll:3}},{breakpoint:1025,settings:{slidesToShow:2,slidesToScroll:2}},{breakpoint:480,settings:{slidesToShow:1,slidesToScroll:1}}],prevArrow:'<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',nextArrow:'<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',appendArrows:a},s(i).data("slick")||{});s(i).slick(o)}),s(".carousel-6-columns").each(function(){var e=s(this),t=e.attr("id"),i="#"+t,a="#"+t+"-arrows",o=Object.assign({},{dots:!1,infinite:!0,rtl:"rtl"===s("body").prop("dir"),arrows:!0,autoplay:!1,slidesToShow:e.data("items-xxl")?e.data("items-xxl"):e.data("items-xl"),slidesToScroll:1,loop:!0,adaptiveHeight:!0,responsive:[{breakpoint:1600,settings:{slidesToShow:e.data("items-xl")?e.data("items-xl"):e.data("items-xxl"),slidesToScroll:1}},{breakpoint:1025,settings:{slidesToShow:e.data("items-lg"),slidesToScroll:1}},{breakpoint:768,settings:{slidesToShow:e.data("items-md"),slidesToScroll:1}},{breakpoint:480,settings:{slidesToShow:e.data("items-sm"),slidesToScroll:1}}],prevArrow:'<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',nextArrow:'<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',appendArrows:a},s(i).data("slick")||{});s(i).slick(o)}),s(".carousel-3-columns").each(function(){var t=s(this).attr("id"),i="#"+t,a="#"+t+"-arrows",o=Object.assign({dots:!1,infinite:!0,rtl:e,speed:1e3,arrows:!0,autoplay:!0,slidesToShow:3,slidesToScroll:1,loop:!0,adaptiveHeight:!0,responsive:[{breakpoint:1025,settings:{slidesToShow:3,slidesToScroll:3}},{breakpoint:480,settings:{slidesToShow:1,slidesToScroll:1}}],prevArrow:'<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',nextArrow:'<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',appendArrows:a},s(i).data("slick")||{});s(i).slick(o)}),s('button[data-bs-toggle="tab"]').on("shown.bs.tab",function(){s(".carousel-4-columns").slick("setPosition")});var l=function(s){return window.trans=window.trans||{},"undefined"!==window.trans[s]&&window.trans[s]?window.trans[s]:s};s("[data-countdown]").each(function(){var e=s(this),t=s(this).data("countdown");e.countdown(t,function(e){s(this).html(e.strftime('<span class="countdown-section"><span class="countdown-amount hover-up">%D</span><span class="countdown-period"> '+l("days")+' </span></span><span class="countdown-section"><span class="countdown-amount hover-up">%H</span><span class="countdown-period"> '+l("hours")+' </span></span><span class="countdown-section"><span class="countdown-amount hover-up">%M</span><span class="countdown-period"> '+l("mins")+' </span></span><span class="countdown-section"><span class="countdown-amount hover-up">%S</span><span class="countdown-period"> '+l("sec")+" </span></span>"))})}),s(".product-slider-active-1").slick({slidesToShow:5,slidesToScroll:1,rtl:e,autoplay:!0,fade:!1,loop:!0,dots:!1,arrows:!0,prevArrow:'<span class="pro-icon-1-prev"><i class="fi-rs-angle-small-left"></i></span>',nextArrow:'<span class="pro-icon-1-next"><i class="fi-rs-angle-small-right"></i></span>',responsive:[{breakpoint:1199,settings:{slidesToShow:3}},{breakpoint:991,settings:{slidesToShow:2}},{breakpoint:767,settings:{slidesToShow:2}},{breakpoint:575,settings:{slidesToShow:1}}]}),s(".testimonial-active-1").slick({slidesToShow:3,slidesToScroll:1,rtl:e,fade:!1,loop:!0,dots:!1,arrows:!0,prevArrow:'<span class="pro-icon-1-prev"><i class="fi-rs-angle-small-left"></i></span>',nextArrow:'<span class="pro-icon-1-next"><i class="fi-rs-angle-small-right"></i></span>',responsive:[{breakpoint:1199,settings:{slidesToShow:3}},{breakpoint:991,settings:{slidesToShow:2}},{breakpoint:767,settings:{slidesToShow:1}},{breakpoint:575,settings:{slidesToShow:1}}]}),s(".testimonial-active-3").slick({slidesToShow:3,slidesToScroll:1,rtl:e,fade:!1,loop:!0,dots:!0,arrows:!1,responsive:[{breakpoint:1199,settings:{slidesToShow:3}},{breakpoint:991,settings:{slidesToShow:2}},{breakpoint:767,settings:{slidesToShow:1}},{breakpoint:575,settings:{slidesToShow:1}}]}),s(".categories-slider-1").slick({slidesToShow:6,slidesToScroll:1,rtl:e,fade:!1,loop:!0,dots:!1,arrows:!1,responsive:[{breakpoint:1199,settings:{slidesToShow:4}},{breakpoint:991,settings:{slidesToShow:3}},{breakpoint:767,settings:{slidesToShow:2}},{breakpoint:575,settings:{slidesToShow:1}}]}),s(".categories-button-active").on("click",function(e){if(e.preventDefault(),a.find(".categories-button-active").hasClass("cant-close")&&!t.hasClass("stick"))return!1;s(this).hasClass("open")?(s(this).removeClass("open"),s(this).siblings(".categories-dropdown-active-large").removeClass("open"),a.find(".categories-button-active").hasClass("cant-close")||s(this).siblings(".categories-dropdown-active-large").removeClass("default-open")):(s(this).addClass("open"),s(this).siblings(".categories-dropdown-active-large").addClass("open"))});var r,d,c,p=s(".pagingInfo"),h=s(".testimonial-active-2");if(h.on("init reInit afterChange",function(s,e,t){var i=(t||0)+1;p.text("0"+i+" ------ 0"+e.slideCount)}),h.slick({slidesToShow:1,slidesToScroll:1,rtl:e,fade:!1,loop:!0,dots:!1,arrows:!0,prevArrow:'<span class="testimonial-icon-2-prev"><i class="fi-rs-angle-small-left"></i></span>',nextArrow:'<span class="testimonial-icon-2-next"><i class="fi-rs-angle-small-right"></i></span>'}),s(".sort-by-product-area").length){var u=s("body"),g=s(".sort-by-product-area"),w=g.find(".sort-by-dropdown");u.on("click",".sort-by-product-area .sort-by-product-wrap",function(e){e.preventDefault();var t=s(this);t.parent().hasClass("show")?t.siblings(".sort-by-dropdown").removeClass("show").closest(".sort-by-product-area").removeClass("show"):t.siblings(".sort-by-dropdown").addClass("show").closest(".sort-by-product-area").addClass("show")}),u.on("click",function(e){var t=e.target;s(t).is(".sort-by-product-area")||s(t).parents().is(".sort-by-product-area")||!g.hasClass("show")||(g.removeClass("show"),w.removeClass("show"))})}s(".shop-filter-toggle").on("click",function(e){e.preventDefault(),s(".shop-product-filter-header").slideToggle(),s(".shop-filter-toggle").toggleClass("active")}),window.closeShopFilterSection=function(){s(".shop-filter-toggle").hasClass("active")&&(s(".shop-product-filter-header").slideToggle(),s(".shop-filter-toggle").removeClass("active"))},s(".pro-dec-big-img-slider").slick({slidesToShow:1,slidesToScroll:1,rtl:e,arrows:!1,draggable:!1,fade:!1,asNavFor:".product-dec-slider-small , .product-dec-slider-small-2"}),s(".product-dec-slider-small").slick({slidesToShow:4,slidesToScroll:1,rtl:e,asNavFor:".pro-dec-big-img-slider",dots:!1,focusOnSelect:!0,fade:!1,arrows:!1,responsive:[{breakpoint:991,settings:{slidesToShow:3}},{breakpoint:767,settings:{slidesToShow:4}},{breakpoint:575,settings:{slidesToShow:2}}]}),s(".img-popup").length&&s(".img-popup").each(function(){s(this).magnificPopup({delegate:"a",type:"image",gallery:{enabled:!0}})}),s(".grid").length&&s(".grid").imagesLoaded(function(){s(".grid").isotope({itemSelector:".grid-item",percentPosition:!0,layoutMode:"masonry",masonry:{columnWidth:".grid-item"}})}),r=s(".search-active"),d=s(".search-close"),c=s(".main-search-active"),r.on("click",function(s){s.preventDefault(),c.addClass("search-visible")}),d.on("click",function(){c.removeClass("search-visible")}),function(){var e=s(".burger-icon"),t=s(".mobile-menu-close"),i=s(".mobile-header-active"),a=s("body");a.prepend('<div class="body-overlay-1"></div>'),e.on("click",function(s){s.preventDefault(),i.addClass("sidebar-visible"),a.addClass("mobile-menu-active")}),t.on("click",function(){i.removeClass("sidebar-visible"),a.removeClass("mobile-menu-active")}),s(".body-overlay-1").on("click",function(){i.removeClass("sidebar-visible"),a.removeClass("mobile-menu-active")})}();var m=s(".mobile-menu"),f=m.find(".dropdown");function v(){var e=s(window).width();s.each(s(".single-hero-slider"),function(t,i){e>=1200?s(i).data("original-image")&&s(i).css({"background-image":'url("'+encodeURI(s(i).data("original-image"))+'")'}):e>768?s(i).data("tablet-image")&&s(i).css({"background-image":'url("'+encodeURI(s(i).data("tablet-image"))+'")'}):e<=768&&s(i).data("mobile-image")&&s(i).css({"background-image":'url("'+encodeURI(s(i).data("mobile-image"))+'")'})})}f.parent().prepend('<span class="menu-expand"><i class="fi-rs-angle-down"></i></span>'),f.slideUp(),m.on("click","li a, li .menu-expand",function(e){var t=s(this);t.parent().attr("class").match(/\b(menu-item-has-children|has-children|has-sub-menu)\b/)&&("#"===t.attr("href")||t.hasClass("menu-expand"))&&(e.preventDefault(),t.siblings("ul:visible").length?(t.parent("li").removeClass("active"),t.siblings("ul").slideUp()):(t.parent("li").addClass("active"),t.closest("li").siblings("li").removeClass("active").find("li").removeClass("active"),t.closest("li").siblings("li").find("ul:visible").slideUp(),t.siblings("ul").slideDown()))}),s(".mobile-language-active").on("click",function(e){e.preventDefault(),s(this).closest(".single-mobile-header-info").find(".lang-dropdown-active").slideToggle(900)}),s(".categories-button-active-2").on("click",function(e){e.preventDefault(),s(".categories-dropdown-active-small").slideToggle(900)}),s(".more_slide_open").slideUp(),s(".more_categories").on("click",function(){s(this).toggleClass("show"),s(".more_slide_open").slideToggle(),s(this).hasClass("show")?s(this).find("span.heading-sm-1").text(s(this).data("text-show-less")):s(this).find("span.heading-sm-1").text(s(this).data("text-show-more"))}),s("#news-flash").vTicker({speed:500,pause:3e3,animation:"fade",mousePause:!1,showItems:1}),"undefined"!=typeof WOW&&(new WOW).init(),s(document).ready(function(){s(".list-filter").each(function(){s(this).find("a").on("click",function(e){e.preventDefault(),s(this).parent().siblings().removeClass("active"),s(this).parent().toggleClass("active"),s(this).parents(".attr-detail").find(".current-size").text(s(this).text()),s(this).parents(".attr-detail").find(".current-color").text(s(this).attr("data-color"))})}),s(document).on("click",".dropdown-menu .cart_list",function(s){s.stopPropagation()}),v(),s(window).resize(function(){v()}),s(".product-detail-rating > a").on("click",function(e){e.preventDefault();var t=s(this).attr("href");s(".product-info .nav-tabs li a").removeClass("active"),s('.product-info .nav-tabs a[href="'+t+'"]').addClass("active"),s(t).addClass("active show"),s(t).siblings(".tab-pane").removeClass("active show"),s("html, body").animate({scrollTop:s(t).offset().top-s(".header-bottom.sticky-bar").height()-220+"px"},800)})}),document.addEventListener("ecommerce.product-filter.success",function(s){o()}),document.addEventListener("ecommerce.cart.added",function(e){var t=e.detail,i=t.data;t.message,i&&void 0!==i.count&&(s(".mini-cart-icon span").text(i.count),s(".cart-dropdown-wrap .header-cart-count").text(i.count)),i&&i.additional&&i.additional.html&&s(".cart-dropdown-panel").html(i.additional.html),i&&!i.additional&&window.siteUrl&&s.ajax({url:window.siteUrl+"/ajax/cart",type:"GET",success:function(e){if(!e.error){var t=s(".cart-dropdown-panel");t.length&&e.data.html&&t.html(e.data.html);var i=s(".cart-dropdown-wrap .header-cart-count");i.length&&void 0!==e.data.count&&i.text(e.data.count)}}})}),document.addEventListener("ecommerce.quick-shop.completed",function(e){var t=e.detail.modal;if(t&&t.length){var i=t.find(".product-attributes");i.length&&i.attr("data-quick-shop","true"),t.find(".qty-up, .qty-down").each(function(){var e=s(this);"#"===e.attr("href")&&e.attr("href","javascript:void(0)")});var a=t.find(".add-to-cart-form");a.length&&"#"===a.attr("action")&&a.attr("action",a.data("url")||'{{ route("public.ajax.cart.store") }}')}});var b=window.history.pushState,S=window.history.replaceState,k=!1;function T(){"undefined"!=typeof ChangeProductSwatches&&(ChangeProductSwatches.prototype._originalCallAjax||(ChangeProductSwatches.prototype._originalCallAjax=ChangeProductSwatches.prototype.callAjax,ChangeProductSwatches.prototype._originalHandleResponse=ChangeProductSwatches.prototype.handleResponse,ChangeProductSwatches.prototype.callAjax=function(s,e,t,i,a){return(e.closest("#quick-shop-modal").length||"true"===e.attr("data-quick-shop"))&&(i=!1),this._originalCallAjax.call(this,s,e,t,i,a)},ChangeProductSwatches.prototype.handleResponse=function(s,e,t){return(e.closest("#quick-shop-modal").length||"true"===e.attr("data-quick-shop"))&&(t=!1),this._originalHandleResponse.call(this,s,e,t)}))}window.history.pushState=function(){if(!k)return b.apply(window.history,arguments)},window.history.replaceState=function(){if(!k)return S.apply(window.history,arguments)},s(document).on("show.bs.modal","#quick-shop-modal",function(){k=!0}),s(document).on("hidden.bs.modal","#quick-shop-modal",function(){k=!1}),T(),s(document).ready(function(){T()}),setTimeout(T,100)}(jQuery);
+/******/ (() => { // webpackBootstrap
+/*!************************************************!*\
+  !*** ./platform/themes/nest/assets/js/main.js ***!
+  \************************************************/
+(function ($) {
+  'use strict';
+
+  var isRTL = $('body').prop('dir') === 'rtl';
+
+  // Page loading
+  $(window).on('load', function () {
+    $('#preloader-active').fadeOut();
+    $('body').css({
+      'overflow': 'visible'
+    });
+    $('.home-slider .single-hero-slider').show();
+    $('#news-flash ul li').show();
+  });
+  /*-----------------
+      Menu Stick
+  -----------------*/
+  var header = $('.sticky-bar');
+  var win = $(window);
+  var $headerArea = $('header.header-area');
+  win.on('scroll', function () {
+    var scroll = win.scrollTop();
+    if (scroll < 200) {
+      header.removeClass('stick');
+      $('.header-style-2 .categories-dropdown-active-large').removeClass('open');
+      $('.header-style-2 .categories-button-active').removeClass('open');
+    } else {
+      header.addClass('stick');
+    }
+  });
+
+  /*------ ScrollUp -------- */
+  $.scrollUp({
+    scrollText: '<i class="fi-rs-arrow-small-up"></i>',
+    easingType: 'linear',
+    scrollSpeed: 900,
+    animation: 'fade'
+  });
+
+  //sidebar sticky
+  if ($('.sticky-sidebar').length) {
+    $('.sticky-sidebar').theiaStickySidebar();
+  }
+
+  /**
+   * Number.prototype.format_price(n, x)
+   *
+   * @param integer n: length of decimal
+   * @param integer x: length of sections
+   */
+  Number.prototype.format_price = function (n, x) {
+    var currencies = window.currencies || {};
+    if (!n) {
+      n = currencies.number_after_dot != undefined ? currencies.number_after_dot : 2;
+    }
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+$)';
+    var priceUnit = '';
+    var price = this;
+    if (currencies.show_symbol_or_title) {
+      priceUnit = currencies.symbol || currencies.title;
+    }
+    if (currencies.display_big_money) {
+      if (price >= 1000000 && price < 1000000000) {
+        price = price / 1000000;
+        priceUnit = currencies.million + (priceUnit ? ' ' + priceUnit : '');
+      } else if (price >= 1000000000) {
+        price = price / 1000000000;
+        priceUnit = currencies.billion + (priceUnit ? ' ' + priceUnit : '');
+      }
+    }
+    price = price.toFixed(Math.max(0, ~~n));
+    price = price.toString().split('.');
+    price = price[0].toString().replace(new RegExp(re, 'g'), '$&' + currencies.thousands_separator) + (price[1] ? currencies.decimal_separator + price[1] : '');
+    if (currencies.show_symbol_or_title) {
+      if (currencies.is_prefix_symbol) {
+        price = priceUnit + price;
+      } else {
+        price = price + priceUnit;
+      }
+    }
+    return price;
+  };
+
+  /*---------------------
+      Price range
+  --------------------- */
+  var initPriceFilter = function initPriceFilter() {
+    if ($('.slider-range').length) {
+      $('.slider-range').map(function (i, el) {
+        var $this = $(el);
+        var $parent = $this.closest('.range');
+        var $min = $parent.find('input.min-range');
+        var $max = $parent.find('input.max-range');
+        $this.slider({
+          range: true,
+          min: $min.data('min') || 0,
+          max: $max.data('max') || 500,
+          values: [$min.val() || 0, $max.val() || 500],
+          slide: function slide(event, ui) {
+            setInputRange($parent, ui.values[0], ui.values[1]);
+          },
+          change: function change(event, ui) {
+            setInputRange($parent, ui.values[0], ui.values[1]);
+            $parent.find('input.min-range').trigger('change');
+            $parent.find('input.max-range').trigger('change');
+          }
+        });
+        setInputRange($parent, $this.slider('values', 0), $this.slider('values', 1));
+      });
+    }
+  };
+  function setInputRange($parent, min, max) {
+    var $filter = $parent.closest('.widget-filter-item');
+    var minFormatted = min;
+    var maxFormatted = max;
+    if ($filter.length && $filter.data('type') === 'price') {
+      minFormatted = minFormatted.format_price();
+      maxFormatted = maxFormatted.format_price();
+    }
+    var $from = $parent.find('.from');
+    var $to = $parent.find('.to');
+    $parent.find('input.min-range').val(min);
+    $parent.find('input.max-range').val(max);
+    $from.text(minFormatted);
+    $to.text(maxFormatted);
+  }
+  initPriceFilter();
+
+  /*------ Hero slider 1 ----*/
+  $('.hero-slider-1').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    fade: true,
+    loop: true,
+    dots: true,
+    arrows: true,
+    prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-angle-left"></i></span>',
+    nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-angle-right"></i></span>',
+    appendArrows: '.hero-slider-1-arrow',
+    autoplay: true
+  }).on('init afterChange', function () {
+    // Fix accessibility: Remove tabindex from focusable elements in hidden slides
+    $(this).find('.slick-slide[aria-hidden="true"]').find('a, input, button, select, textarea, [tabindex]').attr('tabindex', '-1');
+    $(this).find('.slick-slide[aria-hidden="false"]').find('a, input, button, select, textarea, [tabindex]').attr('tabindex', '0');
+  });
+
+  /*Carousel 8 columns*/
+  $('.carousel-8-columns').each(function () {
+    var id = $(this).attr('id');
+    var sliderID = '#' + id;
+    var appendArrowsClassName = '#' + id + '-arrows';
+    var slickOptions = Object.assign({
+      dots: false,
+      infinite: true,
+      rtl: isRTL,
+      speed: 1000,
+      arrows: true,
+      autoplay: true,
+      slidesToShow: ($(sliderID).data('items-xxl') ? $(sliderID).data('items-xxl') : $(sliderID).data('items-xl')) || 8,
+      slidesToScroll: 1,
+      loop: true,
+      adaptiveHeight: true,
+      responsive: [{
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: $(sliderID).data('items-xl') || 6,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: $(sliderID).data('items-lg') || 5,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: $(sliderID).data('items-md') || 4,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: $(sliderID).data('items-sm') || 2,
+          slidesToScroll: 1
+        }
+      }],
+      prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+      appendArrows: appendArrowsClassName
+    }, $(sliderID).data('slick') || {});
+    $(sliderID).slick(slickOptions);
+  });
+
+  /* Carousel 10 columns */
+  $('.carousel-10-columns').each(function () {
+    var id = $(this).attr('id');
+    var sliderID = '#' + id;
+    var appendArrowsClassName = '#' + id + '-arrows';
+    var slickOptions = Object.assign({
+      dots: false,
+      infinite: true,
+      rtl: isRTL,
+      speed: 1000,
+      arrows: true,
+      autoplay: false,
+      slidesToShow: ($(sliderID).data('items-xxl') ? $(sliderID).data('items-xxl') : $(sliderID).data('items-xl')) || 10,
+      slidesToScroll: 1,
+      loop: true,
+      adaptiveHeight: true,
+      responsive: [{
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: $(sliderID).data('items-xl') || 6,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: $(sliderID).data('items-lg') || 5,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: $(sliderID).data('items-md') || 4,
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: $(sliderID).data('items-sm') || 2,
+          slidesToScroll: 1
+        }
+      }],
+      prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+      appendArrows: appendArrowsClassName
+    }, $(sliderID).data('slick') || {});
+    $(sliderID).slick(slickOptions);
+  });
+
+  /*Carousel 4 columns*/
+  $('.carousel-4-columns').each(function () {
+    var id = $(this).attr('id');
+    var sliderID = '#' + id;
+    var appendArrowsClassName = '#' + id + '-arrows';
+    var slickOptions = Object.assign({
+      dots: false,
+      infinite: true,
+      rtl: isRTL,
+      speed: 1000,
+      arrows: true,
+      autoplay: true,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      loop: true,
+      adaptiveHeight: true,
+      responsive: [{
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      }, {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }],
+      prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+      appendArrows: appendArrowsClassName
+    }, $(sliderID).data('slick') || {});
+    $(sliderID).slick(slickOptions);
+  });
+  $('.carousel-6-columns').each(function () {
+    var el = $(this);
+    var id = el.attr('id');
+    var sliderID = '#' + id;
+    var appendArrowsClassName = '#' + id + '-arrows';
+    var slickOptions = Object.assign({}, {
+      dots: false,
+      infinite: true,
+      rtl: $('body').prop('dir') === 'rtl',
+      arrows: true,
+      autoplay: false,
+      slidesToShow: el.data('items-xxl') ? el.data('items-xxl') : el.data('items-xl'),
+      slidesToScroll: 1,
+      loop: true,
+      adaptiveHeight: true,
+      responsive: [{
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: el.data('items-xl') ? el.data('items-xl') : el.data('items-xxl'),
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: el.data('items-lg'),
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: el.data('items-md'),
+          slidesToScroll: 1
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: el.data('items-sm'),
+          slidesToScroll: 1
+        }
+      }],
+      prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+      appendArrows: appendArrowsClassName
+    }, $(sliderID).data('slick') || {});
+    $(sliderID).slick(slickOptions);
+  });
+
+  /*Carousel 4 columns*/
+  $('.carousel-3-columns').each(function () {
+    var id = $(this).attr('id');
+    var sliderID = '#' + id;
+    var appendArrowsClassName = '#' + id + '-arrows';
+    var slickOptions = Object.assign({
+      dots: false,
+      infinite: true,
+      rtl: isRTL,
+      speed: 1000,
+      arrows: true,
+      autoplay: true,
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      loop: true,
+      adaptiveHeight: true,
+      responsive: [{
+        breakpoint: 1025,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3
+        }
+      }, {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }],
+      prevArrow: '<span class="slider-btn slider-prev"><i class="fi-rs-arrow-small-left"></i></span>',
+      nextArrow: '<span class="slider-btn slider-next"><i class="fi-rs-arrow-small-right"></i></span>',
+      appendArrows: appendArrowsClassName
+    }, $(sliderID).data('slick') || {});
+    $(sliderID).slick(slickOptions);
+  });
+
+  /*Fix Bootstrap 5 tab & slick slider*/
+
+  $('button[data-bs-toggle="tab"]').on('shown.bs.tab', function () {
+    $('.carousel-4-columns').slick('setPosition');
+  });
+
+  /*------ Timer Countdown ----*/
+
+  var trans = function trans(key) {
+    window.trans = window.trans || {};
+    return window.trans[key] !== 'undefined' && window.trans[key] ? window.trans[key] : key;
+  };
+  $('[data-countdown]').each(function () {
+    var $this = $(this),
+      finalDate = $(this).data('countdown');
+    $this.countdown(finalDate, function (event) {
+      $(this).html(event.strftime('' + '<span class="countdown-section"><span class="countdown-amount hover-up">%D</span><span class="countdown-period"> ' + trans('days') + ' </span></span>' + '<span class="countdown-section"><span class="countdown-amount hover-up">%H</span><span class="countdown-period"> ' + trans('hours') + ' </span></span>' + '<span class="countdown-section"><span class="countdown-amount hover-up">%M</span><span class="countdown-period"> ' + trans('mins') + ' </span></span>' + '<span class="countdown-section"><span class="countdown-amount hover-up">%S</span><span class="countdown-period"> ' + trans('sec') + ' </span></span>'));
+    });
+  });
+
+  /*------ Product slider active 1 ----*/
+  $('.product-slider-active-1').slick({
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    autoplay: true,
+    fade: false,
+    loop: true,
+    dots: false,
+    arrows: true,
+    prevArrow: '<span class="pro-icon-1-prev"><i class="fi-rs-angle-small-left"></i></span>',
+    nextArrow: '<span class="pro-icon-1-next"><i class="fi-rs-angle-small-right"></i></span>',
+    responsive: [{
+      breakpoint: 1199,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2
+      }
+    }, {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 2
+      }
+    }, {
+      breakpoint: 575,
+      settings: {
+        slidesToShow: 1
+      }
+    }]
+  });
+
+  /*------ Testimonial active 1 ----*/
+  $('.testimonial-active-1').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    fade: false,
+    loop: true,
+    dots: false,
+    arrows: true,
+    prevArrow: '<span class="pro-icon-1-prev"><i class="fi-rs-angle-small-left"></i></span>',
+    nextArrow: '<span class="pro-icon-1-next"><i class="fi-rs-angle-small-right"></i></span>',
+    responsive: [{
+      breakpoint: 1199,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2
+      }
+    }, {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 1
+      }
+    }, {
+      breakpoint: 575,
+      settings: {
+        slidesToShow: 1
+      }
+    }]
+  });
+
+  /*------ Testimonial active 3 ----*/
+  $('.testimonial-active-3').slick({
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    fade: false,
+    loop: true,
+    dots: true,
+    arrows: false,
+    responsive: [{
+      breakpoint: 1199,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 2
+      }
+    }, {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 1
+      }
+    }, {
+      breakpoint: 575,
+      settings: {
+        slidesToShow: 1
+      }
+    }]
+  });
+
+  /*------ Categories slider 1 ----*/
+  $('.categories-slider-1').slick({
+    slidesToShow: 6,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    fade: false,
+    loop: true,
+    dots: false,
+    arrows: false,
+    responsive: [{
+      breakpoint: 1199,
+      settings: {
+        slidesToShow: 4
+      }
+    }, {
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 2
+      }
+    }, {
+      breakpoint: 575,
+      settings: {
+        slidesToShow: 1
+      }
+    }]
+  });
+
+  /*----------------------------
+      Category toggle function
+  ------------------------------*/
+  var searchToggle = $('.categories-button-active');
+  searchToggle.on('click', function (e) {
+    e.preventDefault();
+    if ($headerArea.find('.categories-button-active').hasClass('cant-close') && !header.hasClass('stick')) {
+      return false;
+    } else {
+      if ($(this).hasClass('open')) {
+        $(this).removeClass('open');
+        $(this).siblings('.categories-dropdown-active-large').removeClass('open');
+        if (!$headerArea.find('.categories-button-active').hasClass('cant-close')) {
+          $(this).siblings('.categories-dropdown-active-large').removeClass('default-open');
+        }
+      } else {
+        $(this).addClass('open');
+        $(this).siblings('.categories-dropdown-active-large').addClass('open');
+      }
+    }
+  });
+
+  /*-------------------------
+      Testimonial active 2
+  --------------------------*/
+  var $status = $('.pagingInfo');
+  var $slickElement = $('.testimonial-active-2');
+  $slickElement.on('init reInit afterChange', function (event, slick, currentSlide) {
+    //currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
+    var i = (currentSlide ? currentSlide : 0) + 1;
+    $status.text('0' + i + ' ------ ' + '0' + slick.slideCount);
+  });
+  $slickElement.slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    fade: false,
+    loop: true,
+    dots: false,
+    arrows: true,
+    prevArrow: '<span class="testimonial-icon-2-prev"><i class="fi-rs-angle-small-left"></i></span>',
+    nextArrow: '<span class="testimonial-icon-2-next"><i class="fi-rs-angle-small-right"></i></span>'
+  });
+
+  /*-------------------------------
+      Sort by active
+  -----------------------------------*/
+  if ($('.sort-by-product-area').length) {
+    var $body = $('body'),
+      $cartWrap = $('.sort-by-product-area'),
+      $cartContent = $cartWrap.find('.sort-by-dropdown');
+    $body.on('click', '.sort-by-product-area .sort-by-product-wrap', function (e) {
+      e.preventDefault();
+      var $this = $(this);
+      if (!$this.parent().hasClass('show')) {
+        $this.siblings('.sort-by-dropdown').addClass('show').closest('.sort-by-product-area').addClass('show');
+      } else {
+        $this.siblings('.sort-by-dropdown').removeClass('show').closest('.sort-by-product-area').removeClass('show');
+      }
+    });
+    /*Close When Click Outside*/
+    $body.on('click', function (e) {
+      var $target = e.target;
+      if (!$($target).is('.sort-by-product-area') && !$($target).parents().is('.sort-by-product-area') && $cartWrap.hasClass('show')) {
+        $cartWrap.removeClass('show');
+        $cartContent.removeClass('show');
+      }
+    });
+  }
+
+  /*-----------------------
+      Shop filter active
+  ------------------------- */
+  var shopFiltericon = $('.shop-filter-toggle');
+  shopFiltericon.on('click', function (e) {
+    e.preventDefault();
+    $('.shop-product-filter-header').slideToggle();
+    $('.shop-filter-toggle').toggleClass('active');
+  });
+  function closeShopFilterSection() {
+    if ($('.shop-filter-toggle').hasClass('active')) {
+      $('.shop-product-filter-header').slideToggle();
+      $('.shop-filter-toggle').removeClass('active');
+    }
+  }
+  window.closeShopFilterSection = closeShopFilterSection;
+
+  /*-------------------------------------
+      Product details big image slider
+  ---------------------------------------*/
+  $('.pro-dec-big-img-slider').slick({
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    arrows: false,
+    draggable: false,
+    fade: false,
+    asNavFor: '.product-dec-slider-small , .product-dec-slider-small-2'
+  });
+
+  /*---------------------------------------
+      Product details small image slider
+  -----------------------------------------*/
+  $('.product-dec-slider-small').slick({
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    rtl: isRTL,
+    asNavFor: '.pro-dec-big-img-slider',
+    dots: false,
+    focusOnSelect: true,
+    fade: false,
+    arrows: false,
+    responsive: [{
+      breakpoint: 991,
+      settings: {
+        slidesToShow: 3
+      }
+    }, {
+      breakpoint: 767,
+      settings: {
+        slidesToShow: 4
+      }
+    }, {
+      breakpoint: 575,
+      settings: {
+        slidesToShow: 2
+      }
+    }]
+  });
+
+  /*-----------------------
+      Magnific Popup
+  ------------------------*/
+  if ($('.img-popup').length) {
+    $('.img-popup').each(function () {
+      // the containers for all your galleries
+      $(this).magnificPopup({
+        delegate: 'a',
+        // the selector for gallery item
+        type: 'image',
+        gallery: {
+          enabled: true
+        }
+      });
+    });
+  }
+
+  /*---------------------
+      Select active
+  --------------------- */
+
+  // Isotope active
+  if ($('.grid').length) {
+    $('.grid').imagesLoaded(function () {
+      // init Isotope
+      var $grid = $('.grid').isotope({
+        itemSelector: '.grid-item',
+        percentPosition: true,
+        layoutMode: 'masonry',
+        masonry: {
+          // use outer width of grid-sizer for columnWidth
+          columnWidth: '.grid-item'
+        }
+      });
+    });
+  }
+
+  /*====== SidebarSearch ======*/
+  function sidebarSearch() {
+    var searchTrigger = $('.search-active'),
+      endTriggersearch = $('.search-close'),
+      container = $('.main-search-active');
+    searchTrigger.on('click', function (e) {
+      e.preventDefault();
+      container.addClass('search-visible');
+    });
+    endTriggersearch.on('click', function () {
+      container.removeClass('search-visible');
+    });
+  }
+  sidebarSearch();
+
+  /*====== Sidebar menu Active ======*/
+  function mobileHeaderActive() {
+    var navbarTrigger = $('.burger-icon'),
+      endTrigger = $('.mobile-menu-close'),
+      container = $('.mobile-header-active'),
+      wrapper4 = $('body');
+    wrapper4.prepend('<div class="body-overlay-1"></div>');
+    navbarTrigger.on('click', function (e) {
+      e.preventDefault();
+      container.addClass('sidebar-visible');
+      wrapper4.addClass('mobile-menu-active');
+    });
+    endTrigger.on('click', function () {
+      container.removeClass('sidebar-visible');
+      wrapper4.removeClass('mobile-menu-active');
+    });
+    $('.body-overlay-1').on('click', function () {
+      container.removeClass('sidebar-visible');
+      wrapper4.removeClass('mobile-menu-active');
+    });
+  }
+  mobileHeaderActive();
+
+  /*---------------------
+       Mobile menu active
+   ------------------------ */
+  var $offCanvasNav = $('.mobile-menu'),
+    $offCanvasNavSubMenu = $offCanvasNav.find('.dropdown');
+
+  /*Add Toggle Button With Off Canvas Sub Menu*/
+  $offCanvasNavSubMenu.parent().prepend('<span class="menu-expand"><i class="fi-rs-angle-down"></i></span>');
+
+  /*Close Off Canvas Sub Menu*/
+  $offCanvasNavSubMenu.slideUp();
+
+  /*Category Sub Menu Toggle*/
+  $offCanvasNav.on('click', 'li a, li .menu-expand', function (e) {
+    var $this = $(this);
+    if ($this.parent().attr('class').match(/\b(menu-item-has-children|has-children|has-sub-menu)\b/) && ($this.attr('href') === '#' || $this.hasClass('menu-expand'))) {
+      e.preventDefault();
+      if ($this.siblings('ul:visible').length) {
+        $this.parent('li').removeClass('active');
+        $this.siblings('ul').slideUp();
+      } else {
+        $this.parent('li').addClass('active');
+        $this.closest('li').siblings('li').removeClass('active').find('li').removeClass('active');
+        $this.closest('li').siblings('li').find('ul:visible').slideUp();
+        $this.siblings('ul').slideDown();
+      }
+    }
+  });
+
+  /*--- language currency active ----*/
+  $('.mobile-language-active').on('click', function (e) {
+    e.preventDefault();
+    $(this).closest('.single-mobile-header-info').find('.lang-dropdown-active').slideToggle(900);
+  });
+
+  /*--- categories-button-active-2 ----*/
+  $('.categories-button-active-2').on('click', function (e) {
+    e.preventDefault();
+    $('.categories-dropdown-active-small').slideToggle(900);
+  });
+
+  /*-----More Menu Open----*/
+  $('.more_slide_open').slideUp();
+  $('.more_categories').on('click', function () {
+    $(this).toggleClass('show');
+    $('.more_slide_open').slideToggle();
+    if ($(this).hasClass('show')) {
+      $(this).find('span.heading-sm-1').text($(this).data('text-show-less'));
+    } else {
+      $(this).find('span.heading-sm-1').text($(this).data('text-show-more'));
+    }
+  });
+
+  /*--- VSticker ----*/
+  $('#news-flash').vTicker({
+    speed: 500,
+    pause: 3000,
+    animation: 'fade',
+    mousePause: false,
+    showItems: 1
+  });
+  var productDetails = function productDetails() {
+    //Filter color/Size
+    $('.list-filter').each(function () {
+      $(this).find('a').on('click', function (event) {
+        event.preventDefault();
+        $(this).parent().siblings().removeClass('active');
+        $(this).parent().toggleClass('active');
+        $(this).parents('.attr-detail').find('.current-size').text($(this).text());
+        $(this).parents('.attr-detail').find('.current-color').text($(this).attr('data-color'));
+      });
+    });
+    $(document).on('click', '.dropdown-menu .cart_list', function (e) {
+      e.stopPropagation();
+    });
+  };
+
+  /* WOW active */
+  if (typeof WOW != 'undefined') {
+    new WOW().init();
+  }
+  function sliderImageByResolution() {
+    var windowWidth = $(window).width();
+    $.each($('.single-hero-slider'), function (index, el) {
+      if (windowWidth >= 1200) {
+        if ($(el).data('original-image')) {
+          $(el).css({
+            'background-image': 'url("' + encodeURI($(el).data('original-image')) + '")'
+          });
+        }
+      } else if (windowWidth > 768) {
+        if ($(el).data('tablet-image')) {
+          $(el).css({
+            'background-image': 'url("' + encodeURI($(el).data('tablet-image')) + '")'
+          });
+        }
+      } else if (windowWidth <= 768) {
+        if ($(el).data('mobile-image')) {
+          $(el).css({
+            'background-image': 'url("' + encodeURI($(el).data('mobile-image')) + '")'
+          });
+        }
+      }
+    });
+  }
+
+  //Load functions
+  $(document).ready(function () {
+    productDetails();
+    sliderImageByResolution();
+    $(window).resize(function () {
+      sliderImageByResolution();
+    });
+    $('.product-detail-rating > a').on('click', function (e) {
+      e.preventDefault();
+      var target = $(this).attr('href');
+      $('.product-info .nav-tabs li a').removeClass('active');
+      $('.product-info .nav-tabs a[href="' + target + '"]').addClass('active');
+      $(target).addClass('active show');
+      $(target).siblings('.tab-pane').removeClass('active show');
+      $('html, body').animate({
+        scrollTop: $(target).offset().top - $('.header-bottom.sticky-bar').height() - 220 + 'px'
+      }, 800);
+    });
+  });
+  document.addEventListener('ecommerce.product-filter.success', function (e) {
+    initPriceFilter();
+  });
+
+  // Handle cart.added event to update mini cart
+  document.addEventListener('ecommerce.cart.added', function (event) {
+    var _event$detail = event.detail,
+      data = _event$detail.data,
+      message = _event$detail.message;
+
+    // Update mini cart count
+    if (data && data.count !== undefined) {
+      $('.mini-cart-icon span').text(data.count);
+      $('.cart-dropdown-wrap .header-cart-count').text(data.count);
+    }
+
+    // Update cart dropdown panel if additional HTML is provided
+    if (data && data.additional && data.additional.html) {
+      $('.cart-dropdown-panel').html(data.additional.html);
+    }
+
+    // If no additional HTML but we have cart data, reload the mini cart
+    if (data && !data.additional && window.siteUrl) {
+      $.ajax({
+        url: window.siteUrl + '/ajax/cart',
+        type: 'GET',
+        success: function success(response) {
+          if (!response.error) {
+            var $cartDropdown = $('.cart-dropdown-panel');
+            if ($cartDropdown.length && response.data.html) {
+              $cartDropdown.html(response.data.html);
+            }
+            var $headerCartCount = $('.cart-dropdown-wrap .header-cart-count');
+            if ($headerCartCount.length && response.data.count !== undefined) {
+              $headerCartCount.text(response.data.count);
+            }
+          }
+        }
+      });
+    }
+  });
+
+  // Quick Shop Modal Fixes
+  // Prevent URL modifications when selecting attributes in quick shop modal
+  document.addEventListener('ecommerce.quick-shop.completed', function (event) {
+    var modal = event.detail.modal;
+    if (modal && modal.length) {
+      // Override attribute selection to prevent URL updates
+      var $productAttributes = modal.find('.product-attributes');
+      if ($productAttributes.length) {
+        // Add a marker to identify quick shop context
+        $productAttributes.attr('data-quick-shop', 'true');
+      }
+
+      // Fix quantity buttons to prevent # in URL
+      modal.find('.qty-up, .qty-down').each(function () {
+        var $button = $(this);
+
+        // Change href="#" to href="javascript:void(0)"
+        if ($button.attr('href') === '#') {
+          $button.attr('href', 'javascript:void(0)');
+        }
+      });
+
+      // Ensure form doesn't add # to URL
+      var $form = modal.find('.add-to-cart-form');
+      if ($form.length && $form.attr('action') === '#') {
+        $form.attr('action', $form.data('url') || '{{ route("public.ajax.cart.store") }}');
+      }
+    }
+  });
+
+  // Store original history methods globally
+  var originalPushState = window.history.pushState;
+  var originalReplaceState = window.history.replaceState;
+  var isQuickShopModalOpen = false;
+
+  // Override history methods globally to check for quick shop modal
+  window.history.pushState = function () {
+    if (isQuickShopModalOpen) {
+      return;
+    }
+    return originalPushState.apply(window.history, arguments);
+  };
+  window.history.replaceState = function () {
+    if (isQuickShopModalOpen) {
+      return;
+    }
+    return originalReplaceState.apply(window.history, arguments);
+  };
+
+  // Track quick shop modal state
+  $(document).on('show.bs.modal', '#quick-shop-modal', function () {
+    isQuickShopModalOpen = true;
+  });
+  $(document).on('hidden.bs.modal', '#quick-shop-modal', function () {
+    isQuickShopModalOpen = false;
+  });
+
+  // Override attribute selection behavior to prevent URL updates in modals
+  function overrideAttributeSelection() {
+    if (typeof ChangeProductSwatches !== 'undefined') {
+      // Store original methods if not already stored
+      if (!ChangeProductSwatches.prototype._originalCallAjax) {
+        ChangeProductSwatches.prototype._originalCallAjax = ChangeProductSwatches.prototype.callAjax;
+        ChangeProductSwatches.prototype._originalHandleResponse = ChangeProductSwatches.prototype.handleResponse;
+
+        // Override callAjax method
+        ChangeProductSwatches.prototype.callAjax = function (attributes, $productAttributes, slugAttributes, updateUrl, referenceProduct) {
+          // Force updateUrl to false if we're in quick shop modal
+          if ($productAttributes.closest('#quick-shop-modal').length || $productAttributes.attr('data-quick-shop') === 'true') {
+            updateUrl = false;
+          }
+
+          // Call original method with modified parameters
+          return this._originalCallAjax.call(this, attributes, $productAttributes, slugAttributes, updateUrl, referenceProduct);
+        };
+
+        // Override handleResponse method
+        ChangeProductSwatches.prototype.handleResponse = function (res, $productAttributes, updateUrl) {
+          // Force updateUrl to false if we're in quick shop modal
+          if ($productAttributes.closest('#quick-shop-modal').length || $productAttributes.attr('data-quick-shop') === 'true') {
+            updateUrl = false;
+          }
+
+          // Call original method with modified parameters
+          return this._originalHandleResponse.call(this, res, $productAttributes, updateUrl);
+        };
+      }
+    }
+  }
+
+  // Try to override immediately
+  overrideAttributeSelection();
+
+  // Also try on document ready
+  $(document).ready(function () {
+    overrideAttributeSelection();
+  });
+
+  // And as a fallback, try after a short delay
+  setTimeout(overrideAttributeSelection, 100);
+})(jQuery);
+/******/ })()
+;

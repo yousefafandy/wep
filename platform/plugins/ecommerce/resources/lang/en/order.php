@@ -15,6 +15,7 @@ return [
         'completed' => 'Completed',
         'canceled' => 'Canceled',
     ],
+    'map' => 'Map',
     'menu' => 'Orders',
     'create' => 'Create an order',
     'cancel_error' => 'The order is delivering or not completed',

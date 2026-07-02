@@ -360,6 +360,17 @@ class PublicCheckoutController extends BaseController
                 'zip_code' => $address->zip_code,
                 'address_id' => $address->id,
             ];
+
+            $lat = $request->input('address.latitude');
+            $lng = $request->input('address.longitude');
+            if ($lat && $lng) {
+                $addressData['latitude'] = $lat;
+                $addressData['longitude'] = $lng;
+
+                $address->latitude = $lat;
+                $address->longitude = $lng;
+                $address->save();
+            }
         } elseif ($addressFromInput = (array) $request->input('address', [])) {
             $addressData = $addressFromInput;
         }

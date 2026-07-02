@@ -157,6 +157,9 @@ class HookServiceProvider extends ServiceProvider
                             'url',
                             route('marketplace.vendor.language-advanced.save', $model->getKey()) . $refLang
                         );
+
+                        $form->add('model', 'hidden', ['value' => $model::class]);
+                        $form->add('form', 'hidden', ['value' => $form::class]);
                     }
                 }, 10);
             }

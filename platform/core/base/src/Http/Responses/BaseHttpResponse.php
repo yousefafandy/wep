@@ -87,7 +87,11 @@ class BaseHttpResponse extends Response implements Responsable
     {
         $this
             ->when(URL::previous(), function (self $httpReponse, string $previousUrl): void {
-                $previousRouteName = optional(Route::getRoutes()->match(Request::create($previousUrl)))->getName();
+                try {
+                    $previousRouteName = optional(Route::getRoutes()->match(Request::create($this->sanitizeUrl($previousUrl))))->getName();
+                } catch (\Throwable) {
+                    $previousRouteName = null;
+                }
                 if ($previousRouteName && Str::endsWith($previousRouteName, '.edit')) {
                     $indexRouteName = Str::replaceLast('.edit', '.index', $previousRouteName);
                     if (Route::has($indexRouteName)) {
@@ -208,7 +212,12 @@ class BaseHttpResponse extends Response implements Responsable
             return $this->responseRedirect($this->nextUrl);
         }
 
-        return $this->responseRedirect(URL::previous());
+        return $this->responseRedirect($this->sanitizeUrl(URL::previous()));
+    }
+
+    protected function sanitizeUrl(string $url): string
+    {
+        return str_replace('/public/', '/', $url);
     }
 
     protected function responseRedirect(string $url): RedirectResponse

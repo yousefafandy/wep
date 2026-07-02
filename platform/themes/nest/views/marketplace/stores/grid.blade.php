@@ -1,5 +1,5 @@
 <div class="archive-header-2 text-center pt-80 pb-50">
-    <h1 class="display-2 mb-20">{{ $store->name }} {!! $store->badge !!}</h1>
+    <h1 class="display-2 mb-20">{{ $store->name }} {!! $store->badge !!} @if (!$store->isKitchenOpen())<span class="badge bg-danger ms-1">{{ __('Closed') }}</span>@endif</h1>
     <div class="row">
         <div class="col-12 mb-50">
             @php
@@ -39,7 +39,7 @@
                 <div class="product-category">
                     <span class="text-muted">{{ __('Since :year', ['year' => Theme::formatDate($store->created_at, 'Y')]) }}</span>
                 </div>
-                <h4 class="mb-5"><a href="{{ $store->url }}" class="text-heading">{!! BaseHelper::clean($store->name) !!}</a> {!! $store->badge !!}</h4>
+                <h4 class="mb-5"><a href="{{ $store->url }}" class="text-heading">{!! BaseHelper::clean($store->name) !!}</a> {!! $store->badge !!} @if (!$store->isKitchenOpen())<span class="badge bg-danger ms-1">{{ __('Closed') }}</span>@endif</h4>
                 <div class="mb-15">
                     @include(Theme::getThemeNamespace('views.marketplace.stores.partials.rating'))
                 </div>

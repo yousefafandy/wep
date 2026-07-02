@@ -26,6 +26,8 @@ class OrderAddress extends BaseModel
         'city',
         'address',
         'zip_code',
+        'latitude',
+        'longitude',
         'order_id',
         'type',
     ];

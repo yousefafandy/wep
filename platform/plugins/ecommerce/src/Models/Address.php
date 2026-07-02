@@ -20,6 +20,8 @@ class Address extends BaseModel
         'city',
         'address',
         'zip_code',
+        'latitude',
+        'longitude',
         'customer_id',
         'is_default',
     ];

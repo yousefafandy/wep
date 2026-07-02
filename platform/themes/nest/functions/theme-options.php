@@ -742,5 +742,58 @@ app('events')->listen(RenderingThemeOptionSettings::class, function (): void {
                     'class' => 'form-select',
                 ],
             ],
+        ])
+        ->setSection([
+            'title' => __('Kitchen Settings'),
+            'id' => 'opt-text-subsection-kitchen',
+            'subsection' => true,
+            'icon' => 'ti ti-chef-hat',
+        ])
+        ->setField([
+            'id' => 'kitchen_is_open',
+            'section_id' => 'opt-text-subsection-kitchen',
+            'type' => 'customSelect',
+            'label' => __('Kitchen Status'),
+            'attributes' => [
+                'name' => 'kitchen_is_open',
+                'list' => [
+                    '1' => __('Open'),
+                    '0' => __('Closed'),
+                ],
+                'value' => '1',
+                'options' => [
+                    'class' => 'form-select',
+                ],
+            ],
+        ])
+        ->setField([
+            'id' => 'kitchen_closed_message',
+            'section_id' => 'opt-text-subsection-kitchen',
+            'type' => 'text',
+            'label' => __('Closed Message'),
+            'attributes' => [
+                'name' => 'kitchen_closed_message',
+                'value' => __('The kitchen is currently closed. Please come back during working hours.'),
+                'options' => [
+                    'class' => 'form-control',
+                    'placeholder' => __('Enter the message to show when kitchen is closed'),
+                    'data-counter' => 255,
+                ],
+            ],
+        ])
+        ->setField([
+            'id' => 'kitchen_working_hours',
+            'section_id' => 'opt-text-subsection-kitchen',
+            'type' => 'textarea',
+            'label' => __('Working Hours'),
+            'attributes' => [
+                'name' => 'kitchen_working_hours',
+                'value' => __('Monday-Friday: 09:00-23:00') . PHP_EOL . __('Saturday: 10:00-22:00') . PHP_EOL . __('Sunday: Closed'),
+                'options' => [
+                    'class' => 'form-control',
+                    'placeholder' => __('Enter working hours (one day per line)'),
+                    'data-counter' => 500,
+                ],
+            ],
         ]);
 });

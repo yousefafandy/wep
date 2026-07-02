@@ -68,25 +68,31 @@
 
         <div class="mt-30 d-flex align-items-center">
             @if (EcommerceHelper::isCartEnabled())
-                @if($product->has_variations)
-                    <a aria-label="{{ __('Quick Shop') }}"
-                        class="btn"
-                        data-bb-toggle="quick-shop"
-                        data-url="{{ route('public.ajax.quick-shop', $product->slug) }}"
-                        href="#"
-                        title="{{ __('Quick Shop') }}">
-                        <i class="fi-rs-shopping-cart mr-5"></i>{{ __('Add') }}
-                    </a>
+                @if (is_store_kitchen_open($product))
+                    @if($product->has_variations)
+                        <a aria-label="{{ __('Quick Shop') }}"
+                            class="btn"
+                            data-bb-toggle="quick-shop"
+                            data-url="{{ route('public.ajax.quick-shop', $product->slug) }}"
+                            href="#"
+                            title="{{ __('Quick Shop') }}">
+                            <i class="fi-rs-shopping-cart mr-5"></i>{{ __('Add') }}
+                        </a>
+                    @else
+                        <a aria-label="{{ __('Add To Cart') }}"
+                            class="btn add-to-cart-button"
+                            data-bb-toggle="add-to-cart"
+                            data-id="{{ $product->id }}"
+                            data-url="{{ route('public.cart.add-to-cart') }}"
+                            href="#"
+                            title="{{ __('Add To Cart') }}">
+                            <i class="fi-rs-shopping-cart mr-5"></i>{{ __('Add to Cart') }}
+                        </a>
+                    @endif
                 @else
-                    <a aria-label="{{ __('Add To Cart') }}"
-                        class="btn add-to-cart-button"
-                        data-bb-toggle="add-to-cart"
-                        data-id="{{ $product->id }}"
-                        data-url="{{ route('public.cart.add-to-cart') }}"
-                        href="#"
-                        title="{{ __('Add To Cart') }}">
-                        <i class="fi-rs-shopping-cart mr-5"></i>{{ __('Add to Cart') }}
-                    </a>
+                    <span class="text-danger small fw-bold">
+                        <i class="fi-rs-clock"></i> {{ __('Closed') }}
+                    </span>
                 @endif
             @endif
             @if (EcommerceHelper::isCompareEnabled())

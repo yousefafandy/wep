@@ -79,6 +79,25 @@ class OrderController extends BaseController
         return $dataTable->renderTable();
     }
 
+    public function map()
+    {
+        $this->pageTitle(trans('plugins/ecommerce::order.map'));
+
+        Assets::addStylesDirectly(['https://unpkg.com/leaflet@1.9.4/dist/leaflet.css'])
+            ->addScriptsDirectly(['https://unpkg.com/leaflet@1.9.4/dist/leaflet.js']);
+
+        $orders = Order::query()
+            ->where('is_finished', 1)
+            ->whereHas('shippingAddress', function ($q) {
+                $q->whereNotNull('latitude')->whereNotNull('longitude');
+            })
+            ->with('shippingAddress')
+            ->latest()
+            ->get();
+
+        return view('plugins/ecommerce::orders.map', compact('orders'));
+    }
+
     public function create()
     {
         Assets::addStylesDirectly(['vendor/core/plugins/ecommerce/css/ecommerce.css'])

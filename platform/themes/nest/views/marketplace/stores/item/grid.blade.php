@@ -13,7 +13,7 @@
                     <div class="product-category">
                         <span class="text-muted">{{ __('Since :year', ['year' => Theme::formatDate($store->created_at, 'Y')]) }}</span>
                     </div>
-                    <h4 class="mb-5 text-truncate"><a href="{{ $store->url }}">{!! BaseHelper::clean($store->name) !!}</a> {!! $store->badge !!}</h4>
+                    <h4 class="mb-5 text-truncate"><a href="{{ $store->url }}">{!! BaseHelper::clean($store->name) !!}</a> {!! $store->badge !!} @if (!$store->isKitchenOpen())<span class="badge bg-danger ms-1">{{ __('Closed') }}</span>@endif</h4>
                     <p>({{ __(':total products', ['total' => $store->products_count]) }})</p>
                     @include(Theme::getThemeNamespace('views.marketplace.stores.partials.rating'))
                 </div>

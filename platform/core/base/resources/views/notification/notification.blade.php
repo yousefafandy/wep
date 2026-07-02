@@ -6,6 +6,8 @@
         aria-labelledby="notification-sidebar-label"
         data-url="{{ route('notifications.index') }}"
         data-count-url="{{ route('notifications.count-unread') }}"
+        data-polling-interval="{{ setting('polling_interval', 20) }}"
+        data-sound-url="{{ asset('sounds/sot.mp3') }}"
     >
         <button
             type="button"
@@ -17,5 +19,5 @@
         <div class="notification-content"></div>
     </div>
 
-    <script src="{{ asset('vendor/core/core/base/js/notification.js') }}"></script>
+    <script src="{{ asset('vendor/core/core/base/js/notification.js') }}?v={{ filemtime(public_path('vendor/core/core/base/js/notification.js')) }}"></script>
 @endonce

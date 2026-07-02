@@ -22,7 +22,7 @@ class AdminNotificationQueryBuilder extends BaseQueryBuilder
                  */
                 $query
                     ->whereNull('permission')
-                    ->orWhereIn('permission', $permissions);
+                    ->orWhereIn('permission', array_keys($permissions));
             });
         });
 

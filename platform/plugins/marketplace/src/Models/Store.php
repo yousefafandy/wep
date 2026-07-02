@@ -239,4 +239,49 @@ class Store extends BaseModel
 
         return parent::getMetaData($key, $single);
     }
+
+    public function isKitchenOpen(): bool
+    {
+        if (theme_option('kitchen_is_open', '1') == '0') {
+            return false;
+        }
+
+        $settings = $this->getMetaData('kitchen_settings', true);
+        if (! $settings || ! is_array($settings)) {
+            return true;
+        }
+
+        if (! ($settings['is_open'] ?? true)) {
+            return false;
+        }
+
+        $hours = $settings['working_hours'] ?? [];
+        $hours = array_filter($hours);
+        if (empty($hours)) {
+            return true;
+        }
+
+        $days = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+        $today = $days[(int) now()->format('w')];
+        $currentTime = now()->format('H:i');
+
+        $todayHours = $hours[$today] ?? null;
+        if (! $todayHours || ! str_contains($todayHours, '-')) {
+            return false;
+        }
+
+        [$start, $end] = explode('-', $todayHours, 2);
+
+        return $currentTime >= $start && $currentTime <= $end;
+    }
+
+    public function getKitchenClosedMessage(): string
+    {
+        $settings = $this->getMetaData('kitchen_settings', true);
+        if ($settings && is_array($settings) && ! empty($settings['closed_message'])) {
+            return $settings['closed_message'];
+        }
+
+        return theme_option('kitchen_closed_message', __('This kitchen is currently closed. Please come back during working hours.'));
+    }
 }

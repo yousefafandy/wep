@@ -154,6 +154,8 @@ class MetaBox
 
         $fieldMeta->meta_value = [$value];
         $fieldMeta->save();
+
+        MetadataCache::forget($key, $object);
     }
 
     public function getMetaData(
